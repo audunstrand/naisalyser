@@ -1,0 +1,10 @@
+{
+  "name": "complex-versions",
+  "version": "1.0.0",
+  "dependencies": {
+    "git-package": "git+https://github.com/user/repo.git#v1.0.0",
+    "file-package": "file:../local-package",
+    "range-package": ">=1.0.0 <2.0.0",
+    "wildcard": "*"
+  }
+}
