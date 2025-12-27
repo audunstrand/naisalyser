@@ -28,7 +28,7 @@ func NewReader(verbose bool) *Reader {
 }
 
 // ReadRepository reads repository metadata from local path
-func (r *Reader) ReadRepository(path string) (*Repository, error) {
+func (r *Reader) ReadRepository(path string, org string) (*Repository, error) {
 	absPath, err := filepath.Abs(path)
 	if err != nil {
 		return nil, err
@@ -52,7 +52,7 @@ func (r *Reader) ReadRepository(path string) (*Repository, error) {
 
 	repo := &Repository{
 		Name:        name,
-		FullName:    fmt.Sprintf("navikt/%s", name), // Assume navikt org
+		FullName:    fmt.Sprintf("%s/%s", org, name),
 		Path:        absPath,
 		Description: description,
 		Language:    language,

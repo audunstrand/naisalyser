@@ -4,19 +4,37 @@ import (
 	"github.com/navikt/naisalyser/internal/analyzer"
 )
 
+// NodeType represents the type of a graph node
+type NodeType string
+
+const (
+	NodeTypeApp      NodeType = "app"
+	NodeTypeKafka    NodeType = "kafka"
+	NodeTypeExternal NodeType = "external"
+)
+
+// EdgeType represents the type of a graph edge
+type EdgeType string
+
+const (
+	EdgeTypeCall     EdgeType = "call"
+	EdgeTypeKafka    EdgeType = "kafka"
+	EdgeTypeExternal EdgeType = "external"
+)
+
 // Node represents a node in the dependency graph
 type Node struct {
-	ID        string `json:"id"`
-	Type      string `json:"type"` // "app", "kafka", "external"
-	Namespace string `json:"namespace,omitempty"`
-	Stateful  bool   `json:"stateful,omitempty"` // true if app has database/storage
+	ID        string   `json:"id"`
+	Type      NodeType `json:"type"`
+	Namespace string   `json:"namespace,omitempty"`
+	Stateful  bool     `json:"stateful,omitempty"` // true if app has database/storage
 }
 
 // Edge represents a connection between nodes
 type Edge struct {
-	From string `json:"from"`
-	To   string `json:"to"`
-	Type string `json:"type"` // "inbound", "outbound", "database", "kafka", "external"
+	From string   `json:"from"`
+	To   string   `json:"to"`
+	Type EdgeType `json:"type"`
 }
 
 // Graph represents the complete dependency graph
@@ -25,17 +43,26 @@ type Graph struct {
 	Edges []Edge `json:"edges"`
 }
 
+// edgeKey is used for O(1) duplicate detection
+type edgeKey struct {
+	From string
+	To   string
+	Type EdgeType
+}
+
 // Builder builds a dependency graph from multiple analysis results
 type Builder struct {
-	nodes map[string]Node
-	edges []Edge
+	nodes   map[string]Node
+	edges   []Edge
+	edgeSet map[edgeKey]struct{} // For O(1) duplicate detection
 }
 
 // NewBuilder creates a new graph builder
 func NewBuilder() *Builder {
 	return &Builder{
-		nodes: make(map[string]Node),
-		edges: []Edge{},
+		nodes:   make(map[string]Node),
+		edges:   []Edge{},
+		edgeSet: make(map[edgeKey]struct{}),
 	}
 }
 
@@ -47,19 +74,11 @@ func (b *Builder) AddFromLocalAnalysis(analysis *analyzer.LocalAnalysis) {
 
 	appName := analysis.Repository.Name
 
-	// Determine if app is stateful (has database or storage)
-	stateful := false
-	if analysis.NaisConfig != nil && analysis.NaisConfig.Spec.GCP != nil {
-		if len(analysis.NaisConfig.Spec.GCP.SQLInstances) > 0 || len(analysis.NaisConfig.Spec.GCP.Buckets) > 0 {
-			stateful = true
-		}
-	}
-
-	// Add app node
+	// Add app node - NaisConfig.IsStateful() handles nil checks internally
 	b.addNode(Node{
 		ID:       appName,
-		Type:     "app",
-		Stateful: stateful,
+		Type:     NodeTypeApp,
+		Stateful: analysis.NaisConfig.IsStateful(),
 	})
 
 	if analysis.NaisConfig == nil {
@@ -73,13 +92,13 @@ func (b *Builder) AddFromLocalAnalysis(analysis *analyzer.LocalAnalysis) {
 			for _, rule := range analysis.NaisConfig.Spec.AccessPolicy.Inbound.Rules {
 				b.addNode(Node{
 					ID:        rule.Application,
-					Type:      "app",
+					Type:      NodeTypeApp,
 					Namespace: rule.Namespace,
 				})
 				b.addEdge(Edge{
 					From: rule.Application,
 					To:   appName,
-					Type: "call",
+					Type: EdgeTypeCall,
 				})
 			}
 		}
@@ -89,13 +108,13 @@ func (b *Builder) AddFromLocalAnalysis(analysis *analyzer.LocalAnalysis) {
 			for _, rule := range analysis.NaisConfig.Spec.AccessPolicy.Outbound.Rules {
 				b.addNode(Node{
 					ID:        rule.Application,
-					Type:      "app",
+					Type:      NodeTypeApp,
 					Namespace: rule.Namespace,
 				})
 				b.addEdge(Edge{
 					From: appName,
 					To:   rule.Application,
-					Type: "call",
+					Type: EdgeTypeCall,
 				})
 			}
 
@@ -103,12 +122,12 @@ func (b *Builder) AddFromLocalAnalysis(analysis *analyzer.LocalAnalysis) {
 			for _, ext := range analysis.NaisConfig.Spec.AccessPolicy.Outbound.External {
 				b.addNode(Node{
 					ID:   ext.Host,
-					Type: "external",
+					Type: NodeTypeExternal,
 				})
 				b.addEdge(Edge{
 					From: appName,
 					To:   ext.Host,
-					Type: "external",
+					Type: EdgeTypeExternal,
 				})
 			}
 		}
@@ -120,12 +139,12 @@ func (b *Builder) AddFromLocalAnalysis(analysis *analyzer.LocalAnalysis) {
 	for _, topic := range analysis.KafkaTopics {
 		b.addNode(Node{
 			ID:   topic.Name,
-			Type: "kafka",
+			Type: NodeTypeKafka,
 		})
 		b.addEdge(Edge{
 			From: appName,
 			To:   topic.Name,
-			Type: "kafka",
+			Type: EdgeTypeKafka,
 		})
 	}
 
@@ -134,12 +153,12 @@ func (b *Builder) AddFromLocalAnalysis(analysis *analyzer.LocalAnalysis) {
 		kafkaPool := analysis.NaisConfig.Spec.Kafka.Pool
 		b.addNode(Node{
 			ID:   kafkaPool,
-			Type: "kafka",
+			Type: NodeTypeKafka,
 		})
 		b.addEdge(Edge{
 			From: appName,
 			To:   kafkaPool,
-			Type: "kafka",
+			Type: EdgeTypeKafka,
 		})
 	}
 }
@@ -151,12 +170,11 @@ func (b *Builder) addNode(node Node) {
 }
 
 func (b *Builder) addEdge(edge Edge) {
-	// Check for duplicate edges
-	for _, e := range b.edges {
-		if e.From == edge.From && e.To == edge.To && e.Type == edge.Type {
-			return
-		}
+	key := edgeKey{From: edge.From, To: edge.To, Type: edge.Type}
+	if _, exists := b.edgeSet[key]; exists {
+		return
 	}
+	b.edgeSet[key] = struct{}{}
 	b.edges = append(b.edges, edge)
 }
 

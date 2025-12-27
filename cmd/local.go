@@ -41,8 +41,21 @@ func init() {
 
 func runLocal(cmd *cobra.Command, args []string) error {
 	repoPath := args[0]
-	outputDir, _ := cmd.Flags().GetString("output")
-	verbose, _ := cmd.Flags().GetBool("verbose")
+	
+	outputDir, err := mustGetString(cmd, "output")
+	if err != nil {
+		return err
+	}
+	
+	verbose, err := mustGetBool(cmd, "verbose")
+	if err != nil {
+		return err
+	}
+	
+	org, err := mustGetString(cmd, "org")
+	if err != nil {
+		return err
+	}
 
 	if verbose {
 		fmt.Printf("Analyzing local repository: %s\n", repoPath)
@@ -50,7 +63,7 @@ func runLocal(cmd *cobra.Command, args []string) error {
 
 	// Read local repository
 	reader := local.NewReader(verbose)
-	repoData, err := reader.ReadRepository(repoPath)
+	repoData, err := reader.ReadRepository(repoPath, org)
 	if err != nil {
 		return fmt.Errorf("failed to read repository: %w", err)
 	}
@@ -72,8 +85,21 @@ func runLocal(cmd *cobra.Command, args []string) error {
 
 func runLocalBatch(cmd *cobra.Command, args []string) error {
 	reposDir := args[0]
-	outputDir, _ := cmd.Flags().GetString("output")
-	verbose, _ := cmd.Flags().GetBool("verbose")
+	
+	outputDir, err := mustGetString(cmd, "output")
+	if err != nil {
+		return err
+	}
+	
+	verbose, err := mustGetBool(cmd, "verbose")
+	if err != nil {
+		return err
+	}
+	
+	org, err := mustGetString(cmd, "org")
+	if err != nil {
+		return err
+	}
 
 	// List subdirectories
 	entries, err := os.ReadDir(reposDir)
@@ -96,7 +122,7 @@ func runLocalBatch(cmd *cobra.Command, args []string) error {
 		repoName := filepath.Base(repoPath)
 		fmt.Printf("[%d/%d] Analyzing %s...\n", i+1, len(repos), repoName)
 
-		repoData, err := reader.ReadRepository(repoPath)
+		repoData, err := reader.ReadRepository(repoPath, org)
 		if err != nil {
 			fmt.Printf("  ⚠ Failed to read: %v\n", err)
 			continue

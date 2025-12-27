@@ -20,4 +20,5 @@ func Execute() error {
 func init() {
 	rootCmd.PersistentFlags().StringP("output", "o", "./docs/generated", "Output directory for generated docs")
 	rootCmd.PersistentFlags().BoolP("verbose", "v", false, "Verbose output")
+	rootCmd.PersistentFlags().String("org", "navikt", "GitHub organization for repository URLs")
 }
