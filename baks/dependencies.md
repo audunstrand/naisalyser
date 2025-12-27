@@ -1,0 +1,114 @@
+# Dependency Graph
+
+```mermaid
+graph LR
+    %% Node definitions
+    familie_ba_soknad_api[familie-ba-soknad-api]\n    statuspoll[statuspoll]\n    login_microsoftonline_com>login.microsoftonline.com]\n    familie_ks_sak_frontend[familie-ks-sak-frontend]\n    familie_ba_sak[(familie-ba-sak)]\n    familie_tilbake[familie-tilbake]\n    modiacontextholder[modiacontextholder]\n    familie_ks_infotrygd_prod_fss_pub_nais_io>familie-ks-infotrygd.prod-fss-pub.nais.io]\n    familie_baks_mottak[familie-baks-mottak]\n    familie_prosessering[familie-prosessering]\n    familie_ba_minside_frontend[familie-ba-minside-frontend]\n    familie_ba_infotrygd_feed_prod_fss_pub_nais_io>familie-ba-infotrygd-feed.prod-fss-pub.nais.io]\n    familie_felles[familie-felles]\n    sdw_wsrest_ecb_europa_eu>sdw-wsrest.ecb.europa.eu]\n    familie_ks_soknad[familie-ks-soknad]\n    familie_ef_mottak[familie-ef-mottak]\n    familie_ba_infotrygd_feed[familie-ba-infotrygd-feed]\n    data_api_ecb_europa_eu>data-api.ecb.europa.eu]\n    familie_integrasjoner[familie-integrasjoner]\n    familie_oppdrag_prod_fss_pub_nais_io>familie-oppdrag.prod-fss-pub.nais.io]\n    sentry_gc_nav_no>sentry.gc.nav.no]\n    familie_ks_mottak[familie-ks-mottak]\n    familie_ba_sak_frontend[familie-ba-sak-frontend]\n    bidrag_grunnlag_feature[bidrag-grunnlag-feature]\n    bidrag_grunnlag[bidrag-grunnlag]\n    familie_integrasjoner_prod_fss_pub_nais_io>familie-integrasjoner.prod-fss-pub.nais.io]\n    omsorgsopptjening_start_innlesning[omsorgsopptjening-start-innlesning]\n    xsrv1mh6_api_sanity_io>xsrv1mh6.api.sanity.io]\n    familie_baks_soknad_api[familie-baks-soknad-api]\n    familie_pdf[familie-pdf]\n    familie_oppdrag[familie-oppdrag]\n    unleash_nais_io>unleash.nais.io]\n    data_norges_bank_no>data.norges-bank.no]\n    familie_ks_sak[familie-ks-sak]\n    norg2_prod_fss_pub_nais_io>norg2.prod-fss-pub.nais.io]\n    familie_ef_iverksett[familie-ef-iverksett]\n    familie_ks_infotrygd[familie-ks-infotrygd]\n    familie_endringslogg[familie-endringslogg]\n    familie_dokument[familie-dokument]\n    sokos_kontoregister_person[sokos-kontoregister-person]\n    familie_ef_sak[familie-ef-sak]\n    familie_ef_proxy[familie-ef-proxy]\n    familie_kontrakter[familie-kontrakter]\n    nav_prod_kafka_nav_prod_aivencloud_com>nav-prod-kafka-nav-prod.aivencloud.com]\n    pdl_api_prod_fss_pub_nais_io>pdl-api.prod-fss-pub.nais.io]\n    teamfamilie_unleash_api_nav_cloud_nais_io>teamfamilie-unleash-api.nav.cloud.nais.io]\n    nav_prod{{nav-prod}}\n    familie_ba_infotrygd[familie-ba-infotrygd]\n    familie_ba_infotrygd_prod_fss_pub_nais_io>familie-ba-infotrygd.prod-fss-pub.nais.io]\n    kodeverk_api_nav_no>kodeverk-api.nav.no]\n    api_gw_oera_no>api-gw.oera.no]\n    familie_brev[familie-brev]\n    logging[logging]\n    >]\n    familie_ba_soknad[familie-ba-soknad]\n    familie_klage[familie-klage]\n    kafka_schema_registry_nais_adeo_no>kafka-schema-registry.nais.adeo.no]\n    familie_ef_personhendelse[familie-ef-personhendelse]\n    graph_microsoft_com>graph.microsoft.com]\n    tilbakekreving_backend[tilbakekreving-backend]\n
+    %% Edges
+    familie_ba_sak_frontend --> familie_ba_sak
+    familie_baks_mottak --> familie_ba_sak
+    familie_prosessering --> familie_ba_sak
+    familie_klage --> familie_ba_sak
+    bidrag_grunnlag_feature --> familie_ba_sak
+    bidrag_grunnlag --> familie_ba_sak
+    omsorgsopptjening_start_innlesning --> familie_ba_sak
+    familie_ba_minside_frontend --> familie_ba_sak
+    familie_ba_sak --> familie_brev
+    familie_ba_sak --> familie_integrasjoner
+    familie_ba_sak --> familie_ba_infotrygd_feed
+    familie_ba_sak --> familie_ba_infotrygd
+    familie_ba_sak --> familie_ef_sak
+    familie_ba_sak --> familie_tilbake
+    familie_ba_sak --> tilbakekreving_backend
+    familie_ba_sak --> familie_oppdrag
+    familie_ba_sak --> familie_klage
+    familie_ba_sak --> logging
+    familie_ba_sak -->|ext| xsrv1mh6_api_sanity_io
+    familie_ba_sak -->|ext| unleash_nais_io
+    familie_ba_sak -->|ext| pdl_api_prod_fss_pub_nais_io
+    familie_ba_sak -->|ext| familie_integrasjoner_prod_fss_pub_nais_io
+    familie_ba_sak -->|ext| familie_oppdrag_prod_fss_pub_nais_io
+    familie_ba_sak -->|ext| familie_ba_infotrygd_prod_fss_pub_nais_io
+    familie_ba_sak -->|ext| familie_ba_infotrygd_feed_prod_fss_pub_nais_io
+    familie_ba_sak -->|ext| sdw_wsrest_ecb_europa_eu
+    familie_ba_sak -->|ext| sentry_gc_nav_no
+    familie_ba_sak -->|ext| data_api_ecb_europa_eu
+    familie_ba_sak -->|ext| teamfamilie_unleash_api_nav_cloud_nais_io
+    familie_ba_sak -->|ext| data_norges_bank_no
+    familie_ba_sak -->|ext| 
+    familie_ba_sak -.->|kafka| nav_prod
+    familie_ba_sak_frontend --> familie_endringslogg
+    familie_ba_soknad_api --> familie_baks_mottak
+    familie_baks_soknad_api --> familie_baks_mottak
+    familie_prosessering --> familie_baks_mottak
+    statuspoll --> familie_baks_mottak
+    familie_baks_mottak --> familie_ks_sak
+    familie_baks_mottak --> familie_dokument
+    familie_baks_mottak --> familie_pdf
+    familie_baks_mottak --> logging
+    familie_baks_mottak -->|ext| kafka_schema_registry_nais_adeo_no
+    familie_baks_mottak -->|ext| pdl_api_prod_fss_pub_nais_io
+    familie_baks_mottak -->|ext| norg2_prod_fss_pub_nais_io
+    familie_baks_mottak -->|ext| familie_integrasjoner_prod_fss_pub_nais_io
+    familie_baks_mottak -->|ext| familie_ba_infotrygd_prod_fss_pub_nais_io
+    familie_baks_mottak -->|ext| teamfamilie_unleash_api_nav_cloud_nais_io
+    familie_baks_mottak -.->|kafka| nav_prod
+    familie_ba_soknad --> familie_baks_soknad_api
+    familie_ks_soknad --> familie_baks_soknad_api
+    familie_baks_soknad_api --> sokos_kontoregister_person
+    familie_baks_soknad_api --> logging
+    familie_baks_soknad_api -->|ext| pdl_api_prod_fss_pub_nais_io
+    familie_baks_soknad_api -->|ext| kodeverk_api_nav_no
+    familie_baks_soknad_api -->|ext| api_gw_oera_no
+    familie_baks_soknad_api -->|ext| login_microsoftonline_com
+    familie_ks_sak --> familie_integrasjoner
+    familie_ba_minside_frontend --> familie_integrasjoner
+    familie_tilbake --> familie_integrasjoner
+    tilbakekreving_backend --> familie_integrasjoner
+    familie_ks_mottak --> familie_integrasjoner
+    familie_baks_mottak --> familie_integrasjoner
+    familie_ef_mottak --> familie_integrasjoner
+    familie_ef_sak --> familie_integrasjoner
+    familie_klage --> familie_integrasjoner
+    familie_ef_iverksett --> familie_integrasjoner
+    familie_ef_personhendelse --> familie_integrasjoner
+    familie_ef_proxy --> familie_integrasjoner
+    familie_integrasjoner --> modiacontextholder
+    familie_integrasjoner --> logging
+    familie_ks_sak_frontend --> familie_ks_sak
+    familie_prosessering --> familie_ks_sak
+    familie_klage --> familie_ks_sak
+    bidrag_grunnlag_feature --> familie_ks_sak
+    bidrag_grunnlag --> familie_ks_sak
+    familie_ef_sak --> familie_ks_sak
+    familie_ks_sak --> familie_brev
+    familie_ks_sak --> familie_ks_infotrygd
+    familie_ks_sak --> familie_ef_sak
+    familie_ks_sak --> familie_tilbake
+    familie_ks_sak --> tilbakekreving_backend
+    familie_ks_sak --> familie_oppdrag
+    familie_ks_sak --> familie_klage
+    familie_ks_sak --> familie_baks_mottak
+    familie_ks_sak --> logging
+    familie_ks_sak -->|ext| nav_prod_kafka_nav_prod_aivencloud_com
+    familie_ks_sak -->|ext| xsrv1mh6_api_sanity_io
+    familie_ks_sak -->|ext| pdl_api_prod_fss_pub_nais_io
+    familie_ks_sak -->|ext| familie_integrasjoner_prod_fss_pub_nais_io
+    familie_ks_sak -->|ext| familie_ks_infotrygd_prod_fss_pub_nais_io
+    familie_ks_sak -->|ext| familie_oppdrag_prod_fss_pub_nais_io
+    familie_ks_sak -->|ext| data_api_ecb_europa_eu
+    familie_ks_sak -->|ext| teamfamilie_unleash_api_nav_cloud_nais_io
+    familie_ks_sak -->|ext| graph_microsoft_com
+    familie_ks_sak -->|ext| 
+    familie_ks_sak -.->|kafka| nav_prod
+
+    %% Styling
+    classDef stateless fill:#4A90D9,stroke:#2E5A8C,color:white
+    classDef stateful fill:#F5A623,stroke:#C47A00,color:white
+    classDef kafka fill:#7B68EE,stroke:#5A4DB2,color:white
+    classDef external fill:#808080,stroke:#404040,color:white
+    class familie_ba_soknad_api,statuspoll,familie_ks_sak_frontend,familie_tilbake,modiacontextholder,familie_baks_mottak,familie_prosessering,familie_ba_minside_frontend,familie_felles,familie_ks_soknad,familie_ef_mottak,familie_ba_infotrygd_feed,familie_integrasjoner,familie_ks_mottak,familie_ba_sak_frontend,bidrag_grunnlag_feature,bidrag_grunnlag,omsorgsopptjening_start_innlesning,familie_baks_soknad_api,familie_pdf,familie_oppdrag,familie_ks_sak,familie_ef_iverksett,familie_ks_infotrygd,familie_endringslogg,familie_dokument,sokos_kontoregister_person,familie_ef_sak,familie_ef_proxy,familie_kontrakter,familie_ba_infotrygd,familie_brev,logging,familie_ba_soknad,familie_klage,familie_ef_personhendelse,tilbakekreving_backend stateless
+    class familie_ba_sak stateful
+    class nav_prod kafka
+    class login_microsoftonline_com,familie_ks_infotrygd_prod_fss_pub_nais_io,familie_ba_infotrygd_feed_prod_fss_pub_nais_io,sdw_wsrest_ecb_europa_eu,data_api_ecb_europa_eu,familie_oppdrag_prod_fss_pub_nais_io,sentry_gc_nav_no,familie_integrasjoner_prod_fss_pub_nais_io,xsrv1mh6_api_sanity_io,unleash_nais_io,data_norges_bank_no,norg2_prod_fss_pub_nais_io,nav_prod_kafka_nav_prod_aivencloud_com,pdl_api_prod_fss_pub_nais_io,teamfamilie_unleash_api_nav_cloud_nais_io,familie_ba_infotrygd_prod_fss_pub_nais_io,kodeverk_api_nav_no,api_gw_oera_no,,kafka_schema_registry_nais_adeo_no,graph_microsoft_com external
+```

@@ -1,0 +1,738 @@
+{
+  "nodes": [
+    {
+      "id": "familie-ba-soknad-api",
+      "type": "app",
+      "namespace": "teamfamilie"
+    },
+    {
+      "id": "statuspoll",
+      "type": "app",
+      "namespace": "navdig"
+    },
+    {
+      "id": "login.microsoftonline.com",
+      "type": "external"
+    },
+    {
+      "id": "familie-ks-sak-frontend",
+      "type": "app"
+    },
+    {
+      "id": "familie-ba-sak",
+      "type": "app",
+      "stateful": true
+    },
+    {
+      "id": "familie-tilbake",
+      "type": "app"
+    },
+    {
+      "id": "modiacontextholder",
+      "type": "app",
+      "namespace": "personoversikt"
+    },
+    {
+      "id": "familie-ks-infotrygd.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "id": "familie-baks-mottak",
+      "type": "app"
+    },
+    {
+      "id": "familie-prosessering",
+      "type": "app"
+    },
+    {
+      "id": "familie-ba-minside-frontend",
+      "type": "app",
+      "namespace": "teamfamilie"
+    },
+    {
+      "id": "familie-ba-infotrygd-feed.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "id": "familie-felles",
+      "type": "app"
+    },
+    {
+      "id": "sdw-wsrest.ecb.europa.eu",
+      "type": "external"
+    },
+    {
+      "id": "familie-ks-soknad",
+      "type": "app"
+    },
+    {
+      "id": "familie-ef-mottak",
+      "type": "app"
+    },
+    {
+      "id": "familie-ba-infotrygd-feed",
+      "type": "app"
+    },
+    {
+      "id": "data-api.ecb.europa.eu",
+      "type": "external"
+    },
+    {
+      "id": "familie-integrasjoner",
+      "type": "app"
+    },
+    {
+      "id": "familie-oppdrag.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "id": "sentry.gc.nav.no",
+      "type": "external"
+    },
+    {
+      "id": "familie-ks-mottak",
+      "type": "app"
+    },
+    {
+      "id": "familie-ba-sak-frontend",
+      "type": "app"
+    },
+    {
+      "id": "bidrag-grunnlag-feature",
+      "type": "app",
+      "namespace": "bidrag"
+    },
+    {
+      "id": "bidrag-grunnlag",
+      "type": "app",
+      "namespace": "bidrag"
+    },
+    {
+      "id": "familie-integrasjoner.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "id": "omsorgsopptjening-start-innlesning",
+      "type": "app",
+      "namespace": "pensjonopptjening"
+    },
+    {
+      "id": "xsrv1mh6.api.sanity.io",
+      "type": "external"
+    },
+    {
+      "id": "familie-baks-soknad-api",
+      "type": "app",
+      "namespace": "teamfamilie"
+    },
+    {
+      "id": "familie-pdf",
+      "type": "app"
+    },
+    {
+      "id": "familie-oppdrag",
+      "type": "app"
+    },
+    {
+      "id": "unleash.nais.io",
+      "type": "external"
+    },
+    {
+      "id": "data.norges-bank.no",
+      "type": "external"
+    },
+    {
+      "id": "familie-ks-sak",
+      "type": "app"
+    },
+    {
+      "id": "norg2.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "id": "familie-ef-iverksett",
+      "type": "app"
+    },
+    {
+      "id": "familie-ks-infotrygd",
+      "type": "app"
+    },
+    {
+      "id": "familie-endringslogg",
+      "type": "app"
+    },
+    {
+      "id": "familie-dokument",
+      "type": "app"
+    },
+    {
+      "id": "sokos-kontoregister-person",
+      "type": "app",
+      "namespace": "okonomi"
+    },
+    {
+      "id": "familie-ef-sak",
+      "type": "app"
+    },
+    {
+      "id": "familie-ef-proxy",
+      "type": "app"
+    },
+    {
+      "id": "familie-kontrakter",
+      "type": "app"
+    },
+    {
+      "id": "nav-prod-kafka-nav-prod.aivencloud.com",
+      "type": "external"
+    },
+    {
+      "id": "pdl-api.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "id": "teamfamilie-unleash-api.nav.cloud.nais.io",
+      "type": "external"
+    },
+    {
+      "id": "nav-prod",
+      "type": "kafka"
+    },
+    {
+      "id": "familie-ba-infotrygd",
+      "type": "app"
+    },
+    {
+      "id": "familie-ba-infotrygd.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "id": "kodeverk-api.nav.no",
+      "type": "external"
+    },
+    {
+      "id": "api-gw.oera.no",
+      "type": "external"
+    },
+    {
+      "id": "familie-brev",
+      "type": "app"
+    },
+    {
+      "id": "logging",
+      "type": "app",
+      "namespace": "nais-system"
+    },
+    {
+      "id": "",
+      "type": "external"
+    },
+    {
+      "id": "familie-ba-soknad",
+      "type": "app"
+    },
+    {
+      "id": "familie-klage",
+      "type": "app"
+    },
+    {
+      "id": "kafka-schema-registry.nais.adeo.no",
+      "type": "external"
+    },
+    {
+      "id": "familie-ef-personhendelse",
+      "type": "app"
+    },
+    {
+      "id": "graph.microsoft.com",
+      "type": "external"
+    },
+    {
+      "id": "tilbakekreving-backend",
+      "type": "app",
+      "namespace": "tilbake"
+    }
+  ],
+  "edges": [
+    {
+      "from": "familie-ba-sak-frontend",
+      "to": "familie-ba-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "familie-ba-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-prosessering",
+      "to": "familie-ba-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-klage",
+      "to": "familie-ba-sak",
+      "type": "call"
+    },
+    {
+      "from": "bidrag-grunnlag-feature",
+      "to": "familie-ba-sak",
+      "type": "call"
+    },
+    {
+      "from": "bidrag-grunnlag",
+      "to": "familie-ba-sak",
+      "type": "call"
+    },
+    {
+      "from": "omsorgsopptjening-start-innlesning",
+      "to": "familie-ba-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-minside-frontend",
+      "to": "familie-ba-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-brev",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-ba-infotrygd-feed",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-ba-infotrygd",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-ef-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-tilbake",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "tilbakekreving-backend",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-oppdrag",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-klage",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "logging",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "xsrv1mh6.api.sanity.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "unleash.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "pdl-api.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-integrasjoner.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-oppdrag.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-ba-infotrygd.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "familie-ba-infotrygd-feed.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "sdw-wsrest.ecb.europa.eu",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "sentry.gc.nav.no",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "data-api.ecb.europa.eu",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "teamfamilie-unleash-api.nav.cloud.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "data.norges-bank.no",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "",
+      "type": "external"
+    },
+    {
+      "from": "familie-ba-sak",
+      "to": "nav-prod",
+      "type": "kafka"
+    },
+    {
+      "from": "familie-ba-sak-frontend",
+      "to": "familie-endringslogg",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-soknad-api",
+      "to": "familie-baks-mottak",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-soknad-api",
+      "to": "familie-baks-mottak",
+      "type": "call"
+    },
+    {
+      "from": "familie-prosessering",
+      "to": "familie-baks-mottak",
+      "type": "call"
+    },
+    {
+      "from": "statuspoll",
+      "to": "familie-baks-mottak",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "familie-ks-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "familie-dokument",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "familie-pdf",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "logging",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "kafka-schema-registry.nais.adeo.no",
+      "type": "external"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "pdl-api.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "norg2.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "familie-integrasjoner.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "familie-ba-infotrygd.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "teamfamilie-unleash-api.nav.cloud.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "nav-prod",
+      "type": "kafka"
+    },
+    {
+      "from": "familie-ba-soknad",
+      "to": "familie-baks-soknad-api",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-soknad",
+      "to": "familie-baks-soknad-api",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-soknad-api",
+      "to": "sokos-kontoregister-person",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-soknad-api",
+      "to": "logging",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-soknad-api",
+      "to": "pdl-api.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-baks-soknad-api",
+      "to": "kodeverk-api.nav.no",
+      "type": "external"
+    },
+    {
+      "from": "familie-baks-soknad-api",
+      "to": "api-gw.oera.no",
+      "type": "external"
+    },
+    {
+      "from": "familie-baks-soknad-api",
+      "to": "login.microsoftonline.com",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-ba-minside-frontend",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-tilbake",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "tilbakekreving-backend",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-mottak",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-baks-mottak",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-ef-mottak",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-ef-sak",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-klage",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-ef-iverksett",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-ef-personhendelse",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-ef-proxy",
+      "to": "familie-integrasjoner",
+      "type": "call"
+    },
+    {
+      "from": "familie-integrasjoner",
+      "to": "modiacontextholder",
+      "type": "call"
+    },
+    {
+      "from": "familie-integrasjoner",
+      "to": "logging",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak-frontend",
+      "to": "familie-ks-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-prosessering",
+      "to": "familie-ks-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-klage",
+      "to": "familie-ks-sak",
+      "type": "call"
+    },
+    {
+      "from": "bidrag-grunnlag-feature",
+      "to": "familie-ks-sak",
+      "type": "call"
+    },
+    {
+      "from": "bidrag-grunnlag",
+      "to": "familie-ks-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-ef-sak",
+      "to": "familie-ks-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-brev",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-ks-infotrygd",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-ef-sak",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-tilbake",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "tilbakekreving-backend",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-oppdrag",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-klage",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-baks-mottak",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "logging",
+      "type": "call"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "nav-prod-kafka-nav-prod.aivencloud.com",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "xsrv1mh6.api.sanity.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "pdl-api.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-integrasjoner.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-ks-infotrygd.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "familie-oppdrag.prod-fss-pub.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "data-api.ecb.europa.eu",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "teamfamilie-unleash-api.nav.cloud.nais.io",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "graph.microsoft.com",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "",
+      "type": "external"
+    },
+    {
+      "from": "familie-ks-sak",
+      "to": "nav-prod",
+      "type": "kafka"
+    }
+  ]
+}
