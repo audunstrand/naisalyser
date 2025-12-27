@@ -62,7 +62,7 @@ func runGraph(cmd *cobra.Command, args []string) error {
 			fmt.Printf("  Processing %s...\n", repoName)
 		}
 
-		repoData, err := reader.ReadRepository(repoPath)
+		repoData, err := reader.ReadRepository(repoPath, "navikt")
 		if err != nil {
 			if verbose {
 				fmt.Printf("    ⚠ Failed to read: %v\n", err)
