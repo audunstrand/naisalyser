@@ -16,16 +16,16 @@ func (g *Graph) ToMermaid() string {
 	for _, node := range g.Nodes {
 		nodeID := sanitizeMermaidID(node.ID)
 		switch node.Type {
-		case "app":
+		case NodeTypeApp:
 			if node.Stateful {
 				// Cylinder shape for stateful apps (with database)
 				sb.WriteString(fmt.Sprintf("    %s[(%s)]\\n", nodeID, node.ID))
 			} else {
 				sb.WriteString(fmt.Sprintf("    %s[%s]\\n", nodeID, node.ID))
 			}
-		case "kafka":
+		case NodeTypeKafka:
 			sb.WriteString(fmt.Sprintf("    %s{{%s}}\\n", nodeID, node.ID))
-		case "external":
+		case NodeTypeExternal:
 			sb.WriteString(fmt.Sprintf("    %s>%s]\\n", nodeID, node.ID))
 		default:
 			sb.WriteString(fmt.Sprintf("    %s[%s]\\n", nodeID, node.ID))
@@ -38,11 +38,11 @@ func (g *Graph) ToMermaid() string {
 		toID := sanitizeMermaidID(edge.To)
 
 		switch edge.Type {
-		case "call":
+		case EdgeTypeCall:
 			sb.WriteString(fmt.Sprintf("    %s --> %s\n", fromID, toID))
-		case "kafka":
+		case EdgeTypeKafka:
 			sb.WriteString(fmt.Sprintf("    %s -.->|kafka| %s\n", fromID, toID))
-		case "external":
+		case EdgeTypeExternal:
 			sb.WriteString(fmt.Sprintf("    %s -->|ext| %s\n", fromID, toID))
 		default:
 			sb.WriteString(fmt.Sprintf("    %s --> %s\n", fromID, toID))
@@ -61,15 +61,15 @@ func (g *Graph) ToMermaid() string {
 	for _, node := range g.Nodes {
 		id := sanitizeMermaidID(node.ID)
 		switch node.Type {
-		case "app":
+		case NodeTypeApp:
 			if node.Stateful {
 				stateful = append(stateful, id)
 			} else {
 				stateless = append(stateless, id)
 			}
-		case "kafka":
+		case NodeTypeKafka:
 			kafkas = append(kafkas, id)
-		case "external":
+		case NodeTypeExternal:
 			externals = append(externals, id)
 		}
 	}

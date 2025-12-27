@@ -143,9 +143,14 @@ func tryParseNaisConfig(reader *local.Reader, repoPath, path string) *NaisConfig
 
 // preprocessHandlebars replaces handlebars template syntax with placeholder values
 func preprocessHandlebars(content string) string {
-	result := content
+	result := removeEachBlocks(content)
+	result = replaceTemplateVars(result)
+	return result
+}
 
-	// Replace {{#each ...}} ... {{/each}} blocks with empty
+// removeEachBlocks removes {{#each ...}} ... {{/each}} blocks from content
+func removeEachBlocks(content string) string {
+	result := content
 	for strings.Contains(result, "{{#each") {
 		start := strings.Index(result, "{{#each")
 		if start == -1 {
@@ -163,41 +168,45 @@ func preprocessHandlebars(content string) string {
 		}
 		result = result[:lineStart] + result[lineEnd:]
 	}
-
-	// Replace simple {{variable}} with context-appropriate placeholders
-	// For values that need to be integers (like replicas, ports), use "1"
-	// For other values, use "placeholder"
-	lines := strings.Split(result, "\n")
-	for i, line := range lines {
-		for strings.Contains(line, "{{") {
-			start := strings.Index(line, "{{")
-			if start == -1 {
-				break
-			}
-			end := strings.Index(line[start:], "}}")
-			if end == -1 {
-				break
-			}
-
-			// Determine replacement based on context
-			replacement := "placeholder"
-			lineLower := strings.ToLower(line)
-			if strings.Contains(lineLower, "replica") ||
-				strings.Contains(lineLower, "min:") ||
-				strings.Contains(lineLower, "max:") ||
-				strings.Contains(lineLower, "port") ||
-				strings.Contains(lineLower, "timeout") ||
-				strings.Contains(lineLower, "delay") {
-				replacement = "1"
-			}
-
-			line = line[:start] + replacement + line[start+end+2:]
-		}
-		lines[i] = line
-	}
-	result = strings.Join(lines, "\n")
-
 	return result
+}
+
+// replaceTemplateVars replaces simple {{variable}} with context-appropriate placeholders
+func replaceTemplateVars(content string) string {
+	lines := strings.Split(content, "\n")
+	for i, line := range lines {
+		lines[i] = replaceLineTemplateVars(line)
+	}
+	return strings.Join(lines, "\n")
+}
+
+// replaceLineTemplateVars replaces template vars in a single line
+func replaceLineTemplateVars(line string) string {
+	for strings.Contains(line, "{{") {
+		start := strings.Index(line, "{{")
+		if start == -1 {
+			break
+		}
+		end := strings.Index(line[start:], "}}")
+		if end == -1 {
+			break
+		}
+
+		// Determine replacement based on context
+		replacement := "placeholder"
+		lineLower := strings.ToLower(line)
+		if strings.Contains(lineLower, "replica") ||
+			strings.Contains(lineLower, "min:") ||
+			strings.Contains(lineLower, "max:") ||
+			strings.Contains(lineLower, "port") ||
+			strings.Contains(lineLower, "timeout") ||
+			strings.Contains(lineLower, "delay") {
+			replacement = "1"
+		}
+
+		line = line[:start] + replacement + line[start+end+2:]
+	}
+	return line
 }
 
 func fetchLocalDependencies(reader *local.Reader, repo *local.Repository) ([]Dependency, error) {

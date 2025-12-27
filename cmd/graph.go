@@ -35,8 +35,16 @@ func init() {
 
 func runGraph(cmd *cobra.Command, args []string) error {
 	reposDir := args[0]
-	outputDir, _ := cmd.Flags().GetString("output")
-	verbose, _ := cmd.Flags().GetBool("verbose")
+	
+	outputDir, err := mustGetString(cmd, "output")
+	if err != nil {
+		return err
+	}
+	
+	verbose, err := mustGetBool(cmd, "verbose")
+	if err != nil {
+		return err
+	}
 
 	// List subdirectories
 	entries, err := os.ReadDir(reposDir)
@@ -62,7 +70,7 @@ func runGraph(cmd *cobra.Command, args []string) error {
 			fmt.Printf("  Processing %s...\n", repoName)
 		}
 
-		repoData, err := reader.ReadRepository(repoPath)
+		repoData, err := reader.ReadRepository(repoPath, "navikt")
 		if err != nil {
 			if verbose {
 				fmt.Printf("    ⚠ Failed to read: %v\n", err)

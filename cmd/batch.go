@@ -34,11 +34,30 @@ type BatchConfig struct {
 }
 
 func runBatch(cmd *cobra.Command, args []string) error {
-	topic, _ := cmd.Flags().GetString("topic")
-	configFile, _ := cmd.Flags().GetString("config")
-	org, _ := cmd.Flags().GetString("org")
-	outputDir, _ := cmd.Flags().GetString("output")
-	verbose, _ := cmd.Flags().GetBool("verbose")
+	topic, err := mustGetString(cmd, "topic")
+	if err != nil {
+		return err
+	}
+	
+	configFile, err := mustGetString(cmd, "config")
+	if err != nil {
+		return err
+	}
+	
+	org, err := mustGetString(cmd, "org")
+	if err != nil {
+		return err
+	}
+	
+	outputDir, err := mustGetString(cmd, "output")
+	if err != nil {
+		return err
+	}
+	
+	verbose, err := mustGetBool(cmd, "verbose")
+	if err != nil {
+		return err
+	}
 
 	gh := github.NewClient(verbose)
 

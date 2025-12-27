@@ -1,6 +1,8 @@
 package analyzer
 
 import (
+	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"strings"
 
@@ -126,6 +128,51 @@ type NaisBucket struct {
 	Name string `yaml:"name"`
 }
 
+// HasDatabase returns true if the app has Cloud SQL instances configured
+func (n *NaisConfig) HasDatabase() bool {
+	if n == nil || n.Spec.GCP == nil {
+		return false
+	}
+	return len(n.Spec.GCP.SQLInstances) > 0
+}
+
+// HasBuckets returns true if the app has GCS buckets configured
+func (n *NaisConfig) HasBuckets() bool {
+	if n == nil || n.Spec.GCP == nil {
+		return false
+	}
+	return len(n.Spec.GCP.Buckets) > 0
+}
+
+// IsStateful returns true if the app has persistent storage (database or buckets)
+func (n *NaisConfig) IsStateful() bool {
+	return n.HasDatabase() || n.HasBuckets()
+}
+
+// GetInboundApps returns the list of application names allowed to call this app
+func (n *NaisConfig) GetInboundApps() []string {
+	if n == nil || n.Spec.AccessPolicy == nil || n.Spec.AccessPolicy.Inbound == nil {
+		return nil
+	}
+	apps := make([]string, 0, len(n.Spec.AccessPolicy.Inbound.Rules))
+	for _, rule := range n.Spec.AccessPolicy.Inbound.Rules {
+		apps = append(apps, rule.Application)
+	}
+	return apps
+}
+
+// GetOutboundApps returns the list of application names this app can call
+func (n *NaisConfig) GetOutboundApps() []string {
+	if n == nil || n.Spec.AccessPolicy == nil || n.Spec.AccessPolicy.Outbound == nil {
+		return nil
+	}
+	apps := make([]string, 0, len(n.Spec.AccessPolicy.Outbound.Rules))
+	for _, rule := range n.Spec.AccessPolicy.Outbound.Rules {
+		apps = append(apps, rule.Application)
+	}
+	return apps
+}
+
 // Dependency represents an application dependency
 type Dependency struct {
 	Name    string
@@ -236,16 +283,6 @@ func parseGradleDeps(content string) []Dependency {
 	return deps
 }
 
-func parseMavenDeps(content string) []Dependency {
-	// Very basic XML parsing - in production use proper XML parser
-	return []Dependency{}
-}
-
-func parseNpmDeps(content string) []Dependency {
-	// Would parse package.json
-	return []Dependency{}
-}
-
 func parseGoModDeps(content string) []Dependency {
 	var deps []Dependency
 	lines := strings.Split(content, "\n")
@@ -272,6 +309,84 @@ func parseGoModDeps(content string) []Dependency {
 			}
 		}
 	}
+	return deps
+}
+
+// packageJSON represents the structure of package.json
+type packageJSON struct {
+	Dependencies    map[string]string `json:"dependencies"`
+	DevDependencies map[string]string `json:"devDependencies"`
+}
+
+// parseNpmDeps extracts dependencies from package.json content
+func parseNpmDeps(content string) []Dependency {
+	var pkg packageJSON
+	if err := json.Unmarshal([]byte(content), &pkg); err != nil {
+		return nil
+	}
+
+	var deps []Dependency
+
+	// Parse production dependencies
+	for name, version := range pkg.Dependencies {
+		deps = append(deps, Dependency{
+			Name:    name,
+			Version: version,
+			Type:    "npm",
+		})
+	}
+
+	// Parse dev dependencies
+	for name, version := range pkg.DevDependencies {
+		deps = append(deps, Dependency{
+			Name:    name,
+			Version: version,
+			Type:    "npm-dev",
+		})
+	}
+
+	return deps
+}
+
+// pomXML represents the structure of pom.xml
+type pomXML struct {
+	XMLName      xml.Name        `xml:"project"`
+	Dependencies pomDependencies `xml:"dependencies"`
+}
+
+type pomDependencies struct {
+	Dependency []pomDependency `xml:"dependency"`
+}
+
+type pomDependency struct {
+	GroupID    string `xml:"groupId"`
+	ArtifactID string `xml:"artifactId"`
+	Version    string `xml:"version"`
+	Scope      string `xml:"scope"`
+}
+
+// parseMavenDeps extracts dependencies from pom.xml content
+func parseMavenDeps(content string) []Dependency {
+	var pom pomXML
+	if err := xml.Unmarshal([]byte(content), &pom); err != nil {
+		return nil
+	}
+
+	var deps []Dependency
+	for _, d := range pom.Dependencies.Dependency {
+		// Skip test dependencies
+		if d.Scope == "test" {
+			continue
+		}
+
+		name := d.GroupID + ":" + d.ArtifactID
+		deps = append(deps, Dependency{
+			Name:    name,
+			Version: d.Version,
+			Type:    "maven",
+		})
+	}
+
 	return deps
 }
 

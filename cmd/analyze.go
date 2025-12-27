@@ -27,8 +27,16 @@ func init() {
 
 func runAnalyze(cmd *cobra.Command, args []string) error {
 	repo := args[0]
-	outputDir, _ := cmd.Flags().GetString("output")
-	verbose, _ := cmd.Flags().GetBool("verbose")
+	
+	outputDir, err := mustGetString(cmd, "output")
+	if err != nil {
+		return err
+	}
+	
+	verbose, err := mustGetBool(cmd, "verbose")
+	if err != nil {
+		return err
+	}
 
 	if verbose {
 		fmt.Printf("Analyzing repository: %s\n", repo)

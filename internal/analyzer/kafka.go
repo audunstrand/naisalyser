@@ -19,13 +19,6 @@ type KafkaTopic struct {
 func ExtractKafkaTopics(reader *local.Reader, repoPath string) []KafkaTopic {
 	var topics []KafkaTopic
 
-	// Common patterns for Kafka topic definitions
-	patterns := []string{
-		"src/main/kotlin/**/kafka/Topics.kt",
-		"src/main/kotlin/**/Topics.kt",
-		"src/main/java/**/Topics.java",
-	}
-
 	// Try known paths first
 	knownPaths := []string{
 		"src/main/kotlin/no/nav/helse/kafka/Topics.kt",
@@ -50,8 +43,6 @@ func ExtractKafkaTopics(reader *local.Reader, repoPath string) []KafkaTopic {
 		}
 		topics = append(topics, parseKotlinTopics(content, relPath)...)
 	}
-
-	_ = patterns // Reserved for future use
 
 	return topics
 }
